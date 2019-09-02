@@ -1,0 +1,612 @@
+<html>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif
+        }
+
+
+        /* Style the header */
+        .header {
+            grid-area: header;
+            padding-left: 1%;
+            color: #363636;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 1.1;
+        }
+
+        /* The grid container */
+        .grid-container {
+            width: 70%;
+            margin: auto;
+
+            display: grid;
+            grid-template-areas:
+                'header header header header'
+                'nav nav nav nav'
+                'content content content content';
+
+        }
+
+        .about,
+        .activity,
+        .players,
+        .support {
+            padding-right: 5%;
+
+        }
+
+        .player-grid-container {
+            display: grid;
+            grid-template-columns: 25% 25% 25% 25%;
+            grid-gap: 10px;
+            width: 97.8%;
+        }
+
+
+        @media (max-width: 670px) {
+            .player-grid-container {
+                display: grid;
+                grid-template-columns: 100%;
+                grid-gap: 10px;
+                width: 100%;
+            }
+
+            .nav li {
+                display: block !important;
+            }
+        }
+
+        @media (max-width: 1450px) {
+            .player-grid-container {
+                display: grid;
+                grid-template-columns: 33% 33% 33%;
+                grid-gap: 10px;
+                width: 100%;
+            }
+
+        }
+
+        @media (max-width: 1200px) {
+            .player-grid-container {
+                display: grid;
+                grid-template-columns: 50% 50%;
+                grid-gap: 10px;
+                width: 100%;
+            }
+
+            .grid-container {
+                width: 100%;
+            }
+
+            .activity-content th,
+            .activity-content td {
+                padding: 2% 2%;
+                font-weight: normal !important;
+                font-size: 1em !important;
+            }
+
+        }
+
+        /* SUPPORT CARDS */
+
+        .support-name {
+            color: #fff;
+            font-size: 1.5em;
+            font-weight: 500;
+            display: block;
+        }
+
+        .support-role {
+            display: block;
+        }
+
+        /*PLAYER CARDS*/
+        .player {
+            border: #363636 solid 1px;
+            padding: 5%;
+            background: #363636;
+            color: #fff;
+            position: relative;
+        }
+
+        .player img {
+            border: 1px solid #fff;
+            background: #fff;
+        }
+
+
+        .player .player-footer {
+            position: absolute;
+            right: 5%;
+            bottom: 1%;
+        }
+
+        .player .player-header .player-number {
+            color: #fff;
+            font-size: 2.5em;
+            line-height: 1em;
+            font-weight: 700;
+        }
+
+        .player .player-header .player-name {
+            color: #fff;
+            font-size: 1.5em;
+            font-weight: 500;
+        }
+
+        a {
+            color: #CD2521;
+            padding-bottom: 2.2%;
+            text-decoration: none;
+            z-index: 2;
+        }
+
+        a:hover {
+            border-bottom: #CD2521 4px solid;
+        }
+
+        .selected {
+            font-weight: bolder;
+        }
+
+        .players-content-header {
+            background: #CD2521;
+            padding: 2% 2%;
+            color: #fff !important;
+            font-size: 1.2em !important;
+            font-weight: bold !important;
+        }
+
+        .nav {
+            grid-area: nav;
+            border-bottom: solid 1px #363636;
+            padding-bottom: 1%;
+        }
+
+        .nav ul {
+            list-style: none;
+            padding-left: 1%;
+        }
+
+        .nav li {
+            display: inline;
+        }
+
+        .content {
+            grid-area: content;
+
+            padding-top: 2%;
+
+        }
+
+        .players-content h3 {
+            color: #363636;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 1.1;
+
+        }
+
+        .activity-content {
+            padding-top: 2%;
+        }
+
+        .activity-content table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .activity-content table tr {
+            width: 100%;
+            border-collapse: collapse;
+            border-bottom: #363636 1px solid;
+        }
+
+        .activity-content th {
+            border-bottom: #363636 1px solid;
+            background-color: #CD2521;
+            color: #fff;
+
+        }
+
+        .activity-content th:first-of-type,
+        .activity-content td:first-of-type {
+            border-right: #363636 1px solid;
+        }
+
+        .activity-content table tr:nth-child(odd) {
+            background: #f4f4f4;
+        }
+
+        .activity-content table tr td:nth-child(1),
+        .activity-content table tr th:nth-child(1) {
+            width: 20%;
+            text-align: left;
+        }
+
+        .activity-content table tr td:nth-child(2),
+        .activity-content table tr th:nth-child(2) {
+            width: 25%;
+            text-align: left;
+        }
+
+        .activity-content table tr td:nth-child(3),
+        .activity-content table tr th:nth-child(3) {
+            width: 20%;
+            text-align: right;
+        }
+
+        .activity-content table tr td:nth-child(4),
+        .activity-content table tr th:nth-child(4) {
+            width: 8%;
+            text-align: center;
+        }
+
+        .activity-content table tr td:nth-child(5),
+        .activity-content table tr th:nth-child(5) {
+            width: 10%;
+            text-align: left;
+        }
+
+        .activity-content table tr td:nth-child(6),
+        .activity-content table tr th:nth-child(6) {
+            text-align: right;
+            width: 20%
+        }
+
+        .activity-content th,
+        .activity-content td {
+            padding: 2% 2%;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $(".about").click(function () {
+                $(".about-content").show();
+                $(".players-content").hide();
+                $(".activity-content").hide();
+                $(".support-content").hide();
+            });
+
+            $(".activity").click(function () {
+                $(".about-content").hide();
+                $(".players-content").hide();
+                $(".activity-content").show();
+                $(".support-content").hide();
+            });
+
+            $(".players").click(function () {
+                $(".about-content").hide();
+                $(".players-content").show();
+                $(".activity-content").hide();
+                $(".support-content").hide();
+            });
+
+            $(".support").click(function () {
+                $(".about-content").hide();
+                $(".players-content").hide();
+                $(".activity-content").hide();
+                $(".support-content").show();
+            });
+        });
+
+    </script>
+    <div class="grid-container">
+        <div class="header">
+            <h2>A-laget menn</h2>
+        </div>
+        <div class="nav">
+            <ul>
+                <li class="activity"><a href="#activity">Aktivitetsprogram</a></li>
+                <li class="players"><a href="#players">Spillere</a></li>
+                <li class="support"><a href="#support">Støtteapparat</a></li>
+                <li class="about"><a href="#about">Om laget</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="support-content" style="display:none;">
+                <h3 class="players-content-header">Trenere / Støtteapparat</h3>
+                <div class="player-grid-container">
+                    <div class="player">
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <span class="support-name">Lorem ipsum</span>
+                        <span class="support-role">Hovedtrener</span>
+                    </div>
+                    <div class="player">
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <span class="support-name">Lorem ipsum</span>
+                        <span class="support-role">Assistenttrener</span>
+                    </div>
+                    <div class="player">
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <span class="support-name">Lorem ipsum</span>
+                        <span class="support-role">Manager</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="players-content" style="display:none;">
+                <h3 class="players-content-header">Målvakter</h3>
+                <div class="player-grid-container">
+                    <div class="player">
+                        <div class="player-header">
+                            <span class="player-number">1</span>
+                            <span class="player-name">Lorem ipsum</span>
+                        </div>
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <p>Født: 06.09.1990</p>
+                        <p>Nasjon: Norge</p>
+                        <div class="player-footer">
+                            <a href="https://www.eliteprospects.com/player/118026/jorgen-floholm">Se statistiskk</a>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="player-header">
+                            <span class="player-number">1</span>
+                            <span class="player-name">Lorem ipsum</span>
+                        </div>
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <p>Født: 06.09.1990</p>
+                        <p>Nasjon: Norge</p>
+                        <div class="player-footer">
+                            <a href="https://www.eliteprospects.com/player/118026/jorgen-floholm">Se statistiskk</a>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="players-content-header">Backer</h3>
+                <div class="player-grid-container">
+                    <div class="player">
+                        <div class="player-header">
+                            <span class="player-number">21</span>
+                            <span class="player-name">Jørgen Fløholm</span>
+                        </div>
+                        <div class="player-body">
+                            <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                                width="100%">
+                            <p>Født: 05.12.1996</p>
+                            <p>Nasjon: Norge</p>
+                        </div>
+                        <div class="player-footer">
+                            <a href="https://www.eliteprospects.com/player/118026/jorgen-floholm">Se statistiskk</a>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="player-header">
+                            <span class="player-number">1</span>
+                            <span class="player-name">Lorem ipsum</span>
+                        </div>
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <p>Født: 06.09.1990</p>
+                        <p>Nasjon: Norge</p>
+                        <div class="player-footer">
+                            <a href="https://www.eliteprospects.com/player/118026/jorgen-floholm">Se statistiskk</a>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="player-header">
+                            <span class="player-number">1</span>
+                            <span class="player-name">Lorem ipsum</span>
+                        </div>
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <p>Født: 06.09.1990</p>
+                        <p>Nasjon: Norge</p>
+                        <div class="player-footer">
+                            <a href="https://www.eliteprospects.com/player/118026/jorgen-floholm">Se statistiskk</a>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="player-header">
+                            <span class="player-number">1</span>
+                            <span class="player-name">Lorem ipsum</span>
+                        </div>
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <p>Født: 06.09.1990</p>
+                        <p>Nasjon: Norge</p>
+                        <div class="player-footer">
+                            <a href="https://www.eliteprospects.com/player/118026/jorgen-floholm">Se statistiskk</a>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="player-header">
+                            <span class="player-number">1</span>
+                            <span class="player-name">Lorem ipsum</span>
+                        </div>
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <p>Født: 06.09.1990</p>
+                        <p>Nasjon: Norge</p>
+                        <div class="player-footer">
+                            <a href="https://www.eliteprospects.com/player/118026/jorgen-floholm">Se statistiskk</a>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="players-content-header">Løpere</h3>
+                <div class="player-grid-container">
+                    <div class="player">
+                        <div class="player-header">
+                            <span class="player-number">1</span>
+                            <span class="player-name">Lorem ipsum</span>
+                        </div>
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <p>Født: 06.09.1990</p>
+                        <p>Nasjon: Norge</p>
+                        <div class="player-footer">
+                            <a href="https://www.eliteprospects.com/player/118026/jorgen-floholm">Se statistiskk</a>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="player-header">
+                            <span class="player-number">1</span>
+                            <span class="player-name">Lorem ipsum</span>
+                        </div>
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <p>Født: 06.09.1990</p>
+                        <p>Nasjon: Norge</p>
+                        <div class="player-footer">
+                            <a href="https://www.eliteprospects.com/player/118026/jorgen-floholm">Se statistiskk</a>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="player-header">
+                            <span class="player-number">1</span>
+                            <span class="player-name">Lorem ipsum</span>
+                        </div>
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <p>Født: 06.09.1990</p>
+                        <p>Nasjon: Norge</p>
+                        <div class="player-footer">
+                            <a href="https://www.eliteprospects.com/player/118026/jorgen-floholm">Se statistiskk</a>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="player-header">
+                            <span class="player-number">1</span>
+                            <span class="player-name">Lorem ipsum</span>
+                        </div>
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <p>Født: 06.09.1990</p>
+                        <p>Nasjon: Norge</p>
+                        <div class="player-footer">
+                            <a href="https://www.eliteprospects.com/player/118026/jorgen-floholm">Se statistiskk</a>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="player-header">
+                            <span class="player-number">1</span>
+                            <span class="player-name">Lorem ipsum</span>
+                        </div>
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <p>Født: 06.09.1990</p>
+                        <p>Nasjon: Norge</p>
+                        <div class="player-footer">
+                            <a href="https://www.eliteprospects.com/player/118026/jorgen-floholm">Se statistiskk</a>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <div class="player-header">
+                            <span class="player-number">1</span>
+                            <span class="player-name">Lorem ipsum</span>
+                        </div>
+                        <img src="https://static.eliteprospects.com/images/player-fallback.jpg" alt="Lorem ipsum"
+                            width="100%">
+                        <p>Født: 06.09.1990</p>
+                        <p>Nasjon: Norge</p>
+                        <div class="player-footer">
+                            <a href="https://www.eliteprospects.com/player/118026/jorgen-floholm">Se statistiskk</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity-content">
+                <table>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Sted</th>
+                        <th>Hjemmelag</th>
+                        <th></th>
+                        <th>Bortelag</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>20.10.2018 20:00</td>
+                        <td>Lorem Ipsum</td>
+                        <td>Lorem</td>
+                        <td>4 - 2</td>
+                        <td>Ipsum</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>21.10.2019 20:00</td>
+                        <td>Lorem Ipsum</td>
+                        <td>Ipsum</td>
+                        <td></td>
+                        <td>Lorem</td>
+                        <td><a href="#">Kjøp billetter her</a></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="about-content" style="display:none;">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Donec nec purus suscipit libero venenatis aliquam sed nec ligula.
+                    Ut accumsan mauris neque, fermentum volutpat nisl dapibus in.
+                    uspendisse feugiat, sem a tincidunt efficitur, felis nisi vulputate sem, sed hendrerit nulla metus
+                    ut
+                    nisl. Mauris tincidunt ut lacus in posuere. Ut molestie sollicitudin augue, et porttitor felis
+                    elementum
+                    ut. Fusce rutrum, lacus quis mollis eleifend, sem sem tempor justo, ac aliquam orci quam quis enim.
+                    Aliquam varius libero sed massa convallis, at placerat lorem lacinia. Nulla mollis pulvinar egestas.
+                    Ut
+                    a ullamcorper nibh. Sed accumsan tristique leo ut ullamcorper. Ut et felis non orci dapibus aliquam.
+                </p>
+
+                <p>Curabitur sit amet vehicula nisi, vitae mattis neque. Aenean a accumsan velit. Aenean aliquam
+                    molestie
+                    quam at bibendum. Proin mattis velit sollicitudin porttitor vestibulum. Pellentesque vestibulum
+                    felis at
+                    est viverra finibus. Duis lobortis scelerisque est non consectetur. Nulla fermentum libero ut sem
+                    dignissim, non porta lectus consequat. Aenean lobortis leo in nulla sagittis, ac iaculis sapien
+                    convallis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                    himenaeos.
+                    Suspendisse placerat vitae odio sed posuere. Quisque varius arcu orci, et feugiat magna rhoncus eu.
+                    Pellentesque in porttitor velit. Suspendisse sit amet accumsan lacus, id rhoncus enim. Cras
+                    vestibulum
+                    tristique mi, a accumsan leo scelerisque vitae.</p>
+
+                <p>Vivamus lacinia enim a dignissim volutpat. Nunc commodo, est congue tristique venenatis, enim erat
+                    sodales erat, a fermentum dui augue et nulla. Nullam id nunc tellus. Nullam convallis justo nec
+                    lorem
+                    placerat, nec placerat mauris aliquam. Aliquam sed odio lorem. Duis imperdiet pulvinar quam. Aliquam
+                    pharetra sollicitudin feugiat. Integer fringilla nulla vitae mollis bibendum. Duis mattis, lectus
+                    sed
+                    pulvinar bibendum, lorem massa volutpat turpis, finibus vehicula ligula sapien pretium eros.
+                    Phasellus
+                    non laoreet justo. Proin sed interdum justo. Sed sollicitudin nulla in tortor posuere, ut interdum
+                    sem
+                    gravida. Sed convallis neque in odio venenatis porta.
+                </p>
+                <p>
+                    Nulla rhoncus convallis arcu. Vestibulum venenatis libero eget nisl accumsan molestie. Aenean
+                    vehicula
+                    varius fermentum. Etiam sed enim nec magna condimentum mollis. Donec suscipit eget dolor non
+                    tincidunt.
+                    Nullam quis tellus justo. Nunc orci tellus, auctor vel justo id, pulvinar viverra mi. In hendrerit,
+                    diam
+                    sed rhoncus dapibus, neque nibh volutpat purus, eget cursus arcu nisi in libero.
+                </p>
+                <p>
+                    Nunc tellus ante, scelerisque eget felis vitae, imperdiet commodo elit. Ut convallis orci mauris, ut
+                    tempus ex dapibus eget. Mauris varius nisl congue porttitor faucibus. In iaculis aliquet erat, et
+                    consectetur nulla laoreet eu. Curabitur a tellus interdum, viverra est non, egestas leo. Vivamus
+                    bibendum enim vel varius semper. Curabitur aliquam congue porttitor. Etiam facilisis libero in
+                    euismod
+                    semper. Nunc suscipit in ante et dapibus.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
